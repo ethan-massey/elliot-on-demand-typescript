@@ -1,4 +1,4 @@
-build/datasource/repositories/.env
+.env
 .DS_Store
 node_modules
 todo.txt
