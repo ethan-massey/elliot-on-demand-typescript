@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/css/globals.css">
+    <title>Elliot on Demand</title>
+  </head>
+  <body>
+    <%- include('./partials/_nav'); %>
+    <h4 class="text-center m-3 p-3 bg-light text-dark">New episodes every day! Here's what we have on tap 🍺:</h4>
+    <div class="container mt-2">
+      <div class="container px-4 mb-4">
+        <div class="row gx-5">
+          <header>
+            <div id="now_playing"></div>
+          </header>
+          <audio id="audioplayer" class="mt-2 mb-2" controls autoplay preload="metadata">
+            <source src="" type="audio/wav">
+          </audio>
+          <%- include('./partials/_episodeList'); %>
+        </div>
+      </div>
+      <footer>
+        Created by
+        <a target="_blank" href="https://github.com/ethan-massey">Ethan</a>
+      </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="../js/episodeProgressFunctions.js" type="text/javascript"></script>
+    <script>
+      // inital setup
+      setupLocalStorage(<%-JSON.stringify(episodes)%>)
+
+      // add event listeners
+      var player = document.getElementById("audioplayer");
+      player.addEventListener("ended", function(){
+        setCurrentEpisodeStatus("Finished")
+      });
+
+      player.addEventListener("play", function(){
+        setCurrentEpisodeStatus("In progress")
+      });
+
+      // When episode loaded into player, add length to metadata
+      // used for progress bar
+      player.onloadedmetadata = function() {
+        var currentEp = localStorage.getItem("elliot-currentEpisode")
+        var metaData = JSON.parse(localStorage.getItem("elliot-episodeMetadata"));
+        if (metaData[currentEp].length === undefined) {
+          metaData[currentEp].length = player.duration
+          localStorage.setItem(
+            "elliot-episodeMetadata",
+            JSON.stringify(metaData)
+          );
+        }
+      };
+
+      // Save episode position if tab or browser closed
+      window.addEventListener("beforeunload", saveCurrentEpisodePosition);
+      window.addEventListener("pagehide", saveCurrentEpisodePosition);
+      player.addEventListener("timeupdate", saveCurrentEpisodePosition);
+
+      // add event listener to each episode button to change what is loaded in player
+      // Also, add progress badge to each button
+      var episodeButtons = document.getElementsByClassName("episodeName")
+      for(var i = 0; i < episodeButtons.length; i++) {
+        episodeButtons[i].addEventListener("click", changeEpisode, false);
+        updateStatusBadge(episodeButtons[i].getAttribute('fileName'))
+        renderProgressBar(episodeButtons[i].getAttribute('fileName'))
+      }
+
+      // If episode in URL, play that episode
+      const episodeQueued = <%- episodeQueued !== undefined ? JSON.stringify(episodeQueued) : 'undefined' %>;
+      if (episodeQueued !== undefined) {
+        episodeButton = document.getElementById(episodeQueued.fileName);
+        episodeButton.click();
+      }
+    </script>
+  </body>
+</html>

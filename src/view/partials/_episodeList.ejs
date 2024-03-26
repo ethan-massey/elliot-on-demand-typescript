@@ -1,0 +1,41 @@
+<div class="list-group overflow-auto" style="max-height: 90vh;">
+  <% episodes.forEach((item) => { %>
+    <div 
+      class="episodeName list-group-item list-group-item-action"
+      title="<%= item.title %>"
+      fileName="<%= item.fileName %>"
+      type="button"
+      id="<%= item.fileName %>"
+      >
+      <div class="row">
+        <div class="col-4">
+          <span id="<%= item.fileName %>-progress-badge"></span>
+        </div>
+        <div class="col-8">
+          <strong><%= item.title %></strong>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p>
+            <ul>
+              <% item.segments.forEach(seg => { %>
+                <li>
+                  <%= seg.title %> | <%= seg.description %>
+                </li>
+              <% }) %>
+            </ul>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12" id="<%= item.fileName %>-progress-bar">
+        </div>
+      </div>
+      <div class="row text-secondary">
+        <div class="col-12" id="<%= item.fileName %>-time-remaining">
+        </div>
+      </div>
+    </div>
+  <% }) %>
+</div>

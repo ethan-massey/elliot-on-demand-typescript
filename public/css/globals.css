@@ -1,0 +1,10 @@
+.copyToClipboard {
+    position:absolute;
+    bottom: 1em;
+    right: 1em;
+}
+
+.copyToClipboard:hover {
+    color: #106cfc;
+    cursor: pointer;
+}

@@ -1,0 +1,8 @@
+{
+  "type": "mongodb",
+  "url": "***REMOVED***",
+  "useNewUrlParser": true,
+  "synchronize": true,
+  "logging": true,
+  "entities": ["src/entity/*.*"]
+}
