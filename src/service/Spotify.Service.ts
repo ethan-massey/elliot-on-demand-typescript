@@ -3,17 +3,16 @@ import axios from "axios";
 import { SpotifySegment } from "../model/ElliotDailySpotifyUpload.Entity";
 import "dotenv/config";
 
-interface segmentsByDate {
+interface segmentByDate {
   date: string;
-  segments: SpotifySegment;
+  segment: SpotifySegment;
 }
 @Service()
 export class SpotifyService {
   // Get all Elliot in the Morning episodes from Spotify
-  public async getSegmentsByDateFromSpotify(): Promise<segmentsByDate[]> {
+  public async getSegmentsByDateFromSpotify(): Promise<segmentByDate[]> {
     const spotify_bearer_token = await this.getSpotifyBearerToken();
 
-    let segmentsByDate: any = {};
     let config = {
       method: "get",
       // limit=50 maximum that Spotify will provide
@@ -30,21 +29,20 @@ export class SpotifyService {
       console.error(`Error fetching episodes from Spotify. ${error}`);
       throw new Error(`Error fetching episodes from Spotify. ${error}`);
     }
-
-    return segmentsByDate;
   }
 
-  private formatSpotifyDataIntoSegmentsByDate(spotifyResponseData: any[]) {
-    let segmentsByDate: any = {};
-    // get relevant data (title, description)
+  private formatSpotifyDataIntoSegmentsByDate(
+    spotifyResponseData: any[],
+  ): segmentByDate[] {
+    let segmentsByDate: segmentByDate[] = [];
+    // get relevant data (date, title, description)
     spotifyResponseData.forEach((element: any) => {
-      if (!segmentsByDate.hasOwnProperty(element.release_date)) {
-        segmentsByDate[element.release_date] = [];
-      }
-
-      segmentsByDate[element.release_date].push({
-        title: element.name,
-        description: element.description,
+      segmentsByDate.push({
+        date: element.release_date,
+        segment: {
+          title: element.name,
+          description: element.description,
+        },
       });
     });
     return segmentsByDate;
