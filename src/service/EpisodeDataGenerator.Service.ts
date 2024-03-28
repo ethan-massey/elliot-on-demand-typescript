@@ -45,7 +45,7 @@ export class EpisodeDataGeneratorService {
       });
     });
 
-    formattedData.sort().reverse()
+    formattedData.sort().reverse();
 
     return formattedData;
   }
