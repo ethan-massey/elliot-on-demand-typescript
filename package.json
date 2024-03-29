@@ -6,7 +6,7 @@
   "scripts": {
     "start": "tsc && node build/index.js",
     "dev": "npx nodemon ./src/index.ts",
-    "build": "rm -r build && tsc",
+    "build": "rm -rf ./js/ && tsc",
     "format": "prettier --write \"./src/**/*.ts\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
