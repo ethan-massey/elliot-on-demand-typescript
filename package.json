@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node build/index.js",
+    "start": "yarn run build && node build/index.js",
     "dev": "npx nodemon ./src/index.ts",
     "build": "rm -rf ./js/ && tsc",
     "format": "prettier --write \"./src/**/*.ts\"",
