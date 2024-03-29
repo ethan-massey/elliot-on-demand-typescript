@@ -32,11 +32,13 @@ export class MongoDBUploadService {
 
   // cron job to regularly update episode segments in MongoDB
   public initSegmentUploadCronJob() {
+    const cronSchedule = "0 17 * * *"
     // update episodes once a day, every day
-    const updateEpisodeSegments = cron.schedule("0 17 * * *", () => {
+    const updateEpisodeSegments = cron.schedule(cronSchedule, () => {
       this.uploadNewElliotSegmentsToMongoDB().catch(console.dir);
     });
 
-    updateEpisodeSegments.start();
+    updateEpisodeSegments.start()
+    console.log(`MongoDB upload cron job initialized for schedule: ${cronSchedule}`)
   }
 }

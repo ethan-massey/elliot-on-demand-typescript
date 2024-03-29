@@ -8,6 +8,7 @@ export class ElliotDailySpotifyUploadRepository {
   private elliotDailySpotifyUploadModel;
 
   constructor() {
+    this.DATABASE_NAME = "spotifyDB";
     openMongoDBConnection(this.DATABASE_NAME)
       .then(() => {
         console.log(`Connected to MongoDB database ${this.DATABASE_NAME}!`);
@@ -18,7 +19,6 @@ export class ElliotDailySpotifyUploadRepository {
       ElliotDailySpotifyUploadSchema,
       "spotifySegments",
     );
-    this.DATABASE_NAME = "spotifyDB";
   }
 
   public async findByDate(
