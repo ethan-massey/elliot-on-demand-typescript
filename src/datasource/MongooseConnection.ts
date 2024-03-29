@@ -1,4 +1,4 @@
-import mongoose, { connect } from "mongoose";
+import mongoose from "mongoose";
 import "dotenv/config";
 
 const ELLIOT_DATABASE_NAME_UNDEFINED = "ELLIOT_DATABASE_NAME_UNDEFINED";
@@ -14,15 +14,20 @@ export const openMongoDBConnection = async (databaseName: string) => {
     throw new Error("process.env.MONGO_URI is undefined");
   }
 
-  await connect(mongoURI).catch((error) => {
+  await mongoose.connect(mongoURI).catch((error) => {
     console.error(error);
     throw new Error(error);
   });
 };
 
 export const closeMongoDBConnection = async () => {
-  await mongoose.connection.close().catch((error) => {
-    console.error(error);
-    throw new Error(error);
-  });
+  await mongoose.connection
+    .close()
+    .then(() => {
+      console.log("MongoDB connection closed.");
+    })
+    .catch((error) => {
+      console.error(error);
+      throw new Error(error);
+    });
 };

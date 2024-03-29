@@ -5,6 +5,7 @@ import { defaultRouter } from "./handler";
 import { humanReadableTimeRouter } from "./handler/humanReadableTime.Handler";
 import { Container } from "typedi";
 import { MongoDBUploadService } from "./service/MongoDBUpload.Service";
+import { closeMongoDBConnection } from "./datasource/MongooseConnection";
 app.set("views", "./src/view");
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -21,3 +22,9 @@ app.listen(process.env.PORT || 5000, () => {
 // Initiate cron job to update MongoDB with any new EITM spotify episodes
 const mongoDBUploadService = Container.get(MongoDBUploadService);
 mongoDBUploadService.initSegmentUploadCronJob();
+
+process.on("SIGINT", function () {
+  closeMongoDBConnection().then(() => {
+    process.exit(0);
+  });
+});
