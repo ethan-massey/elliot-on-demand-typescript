@@ -8,7 +8,7 @@ interface segmentByDate {
   segment: SpotifySegment;
 }
 @Service()
-export class SpotifyService {
+export class SpotifyRetrievalService {
   // Get all Elliot in the Morning episodes from Spotify
   public async getSegmentsByDateFromSpotify(): Promise<segmentByDate[]> {
     const spotify_bearer_token = await this.getSpotifyBearerToken();

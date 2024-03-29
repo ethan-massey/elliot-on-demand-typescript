@@ -13,8 +13,11 @@ const SpotifySegmentSchema = new Schema<SpotifySegment>(
 );
 
 export const ElliotDailySpotifyUploadSchema =
-  new Schema<ElliotDailySpotifyUploadEntity>({
-    _id: { type: String, required: true },
-    date: { type: String, required: true },
-    segments: [SpotifySegmentSchema],
-  });
+  new Schema<ElliotDailySpotifyUploadEntity>(
+    {
+      _id: { type: String, required: true },
+      date: { type: String, required: true },
+      segments: [SpotifySegmentSchema],
+    },
+    { versionKey: false },
+  );
