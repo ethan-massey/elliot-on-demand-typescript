@@ -1,7 +1,10 @@
-import {Document, model} from "mongoose";
-import {openMongoDBConnection} from "../MongooseConnection";
-import {ElliotDailySpotifyUploadSchema} from "../Schema/ElliotDailySpotifyUploadSchema";
-import {ElliotDailySpotifyUploadEntity, SpotifySegment,} from "../../model/ElliotDailySpotifyUpload.Entity";
+import { Document, model } from "mongoose";
+import { openMongoDBConnection } from "../MongooseConnection";
+import { ElliotDailySpotifyUploadSchema } from "../Schema/ElliotDailySpotifyUploadSchema";
+import {
+  ElliotDailySpotifyUploadEntity,
+  SpotifySegment,
+} from "../../model/ElliotDailySpotifyUpload.Entity";
 
 export class ElliotDailySpotifyUploadRepository {
   private readonly DATABASE_NAME: string;
@@ -37,14 +40,14 @@ export class ElliotDailySpotifyUploadRepository {
 
   public async updateOneByDate(date: string, segment: SpotifySegment) {
     return await this.elliotDailySpotifyUploadModel
-        .updateOne(
-            {date: date},
-            {
-              $addToSet: {segments: segment},
-            },
-            {upsert: true},
-        )
-        .exec();
+      .updateOne(
+        { date: date },
+        {
+          $addToSet: { segments: segment },
+        },
+        { upsert: true },
+      )
+      .exec();
   }
 
   private convertDocumentsToObjects(docs: Document[]) {

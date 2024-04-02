@@ -6,12 +6,13 @@ import { humanReadableTimeRouter } from "./handler/humanReadableTime.Handler";
 import { Container } from "typedi";
 import { MongoDBUploadService } from "./service/MongoDBUpload.Service";
 import { closeMongoDBConnection } from "./datasource/MongooseConnection";
+import {adHocMongoUpdate} from "./handler/MongoDBUploadAdHoc.Handler";
 app.set("views", "./src/view");
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use("/", defaultRouter);
 app.use("/", humanReadableTimeRouter);
-// app.use(require("./routes/adHocMongoUpdate"))
+app.use("/", adHocMongoUpdate)
 
 app.listen(process.env.PORT || 5000, () => {
   console.log(
