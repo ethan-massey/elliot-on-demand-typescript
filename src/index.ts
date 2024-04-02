@@ -5,7 +5,10 @@ import { defaultRouter } from "./handler";
 import { humanReadableTimeRouter } from "./handler/humanReadableTime.Handler";
 import { Container } from "typedi";
 import { MongoDBUploadService } from "./service/MongoDBUpload.Service";
-import {closeMongoDBConnection, openMongoDBConnection} from "./datasource/MongooseConnection";
+import {
+  closeMongoDBConnection,
+  openMongoDBConnection,
+} from "./datasource/MongooseConnection";
 import { adHocMongoUpdate } from "./handler/MongoDBUploadAdHoc.Handler";
 app.set("views", "./src/view");
 app.set("view engine", "ejs");
@@ -14,7 +17,7 @@ app.use("/", defaultRouter);
 app.use("/", humanReadableTimeRouter);
 app.use("/", adHocMongoUpdate);
 
-openMongoDBConnection().catch(console.dir)
+openMongoDBConnection().catch(console.dir);
 
 app.listen(process.env.PORT || 5000, () => {
   console.log(
