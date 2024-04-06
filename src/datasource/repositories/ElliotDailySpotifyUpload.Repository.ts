@@ -6,7 +6,7 @@ import {
 import { MongoBaseRepository } from "./MongoBase.Repository";
 import { ElliotDailySpotifyUploadSchema } from "../Schema/ElliotDailySpotifyUploadSchema";
 
-export class ElliotDailySpotifyUploadRepository extends MongoBaseRepository {
+export class ElliotDailySpotifyUploadRepository extends MongoBaseRepository<ElliotDailySpotifyUploadEntity> {
   constructor() {
     super(
       model<ElliotDailySpotifyUploadEntity>(

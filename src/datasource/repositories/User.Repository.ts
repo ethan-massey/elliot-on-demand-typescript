@@ -3,7 +3,7 @@ import { UserEntity } from "../../model/User.Entity";
 import { model } from "mongoose";
 import { UserSchema } from "../Schema/UserSchema";
 
-export class UserRepository extends MongoBaseRepository {
+export class UserRepository extends MongoBaseRepository<UserEntity> {
   constructor() {
     super(model<UserEntity>("users", UserSchema, "users"));
   }
