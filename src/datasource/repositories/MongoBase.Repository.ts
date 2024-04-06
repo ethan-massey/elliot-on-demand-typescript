@@ -1,5 +1,5 @@
 import { Document, Model } from "mongoose";
-import {MongoDBEntity} from "../../model/MongoDB.Entity";
+import { MongoDBEntity } from "../../model/MongoDB.Entity";
 
 export abstract class MongoBaseRepository {
   protected model: Model<any>;
