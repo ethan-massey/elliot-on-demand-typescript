@@ -1,4 +1,5 @@
 import { Document, Model } from "mongoose";
+import {MongoDBEntity} from "../../model/MongoDB.Entity";
 
 export abstract class MongoBaseRepository {
   protected model: Model<any>;
@@ -7,7 +8,7 @@ export abstract class MongoBaseRepository {
     this.model = model;
   }
 
-  public async findAll<Type>(): Promise<Type[]> {
+  public async findAll<Type extends MongoDBEntity>(): Promise<Type[]> {
     const query = await this.model.find({}).exec();
     return this.convertDocumentsToObjects(query);
   }
