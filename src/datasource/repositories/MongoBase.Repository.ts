@@ -7,6 +7,11 @@ export abstract class MongoBaseRepository {
     this.model = model;
   }
 
+  public async findAll<Type>(): Promise<Type[]> {
+    const query = await this.model.find({}).exec();
+    return this.convertDocumentsToObjects(query);
+  }
+
   protected convertDocumentsToObjects(docs: Document[]) {
     return docs.map((item: Document) => {
       return item.toObject();

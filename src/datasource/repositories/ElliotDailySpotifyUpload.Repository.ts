@@ -17,11 +17,6 @@ export class ElliotDailySpotifyUploadRepository extends MongoBaseRepository {
     );
   }
 
-  public async findAll(): Promise<ElliotDailySpotifyUploadEntity[]> {
-    const query = await this.model.find({}).exec();
-    return this.convertDocumentsToObjects(query);
-  }
-
   public async updateOneByDate(date: string, segment: SpotifySegment) {
     return await this.model
       .updateOne(
