@@ -1,4 +1,4 @@
-# elliot-ui
+# Elliot On Demand!
 
 <img src="./public/demo.png"  width="50%">
 
