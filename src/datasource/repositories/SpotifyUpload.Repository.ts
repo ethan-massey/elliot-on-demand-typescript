@@ -4,7 +4,7 @@ import {
   SpotifySegment,
 } from "../../model/SpotifyUpload.Entity";
 import { MongoBaseRepository } from "./MongoBase.Repository";
-import { SpotifyUploadSchema } from "../Schema/SpotifyUploadSchema";
+import { SpotifyUploadSchema } from "../Schema/SpotifyUpload.Schema";
 
 export class SpotifyUploadRepository extends MongoBaseRepository<SpotifyUploadEntity> {
   constructor() {

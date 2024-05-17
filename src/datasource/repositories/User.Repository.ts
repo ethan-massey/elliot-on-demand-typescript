@@ -1,7 +1,7 @@
 import { MongoBaseRepository } from "./MongoBase.Repository";
 import { UserEntity } from "../../model/User.Entity";
 import { model } from "mongoose";
-import { UserSchema } from "../Schema/UserSchema";
+import { UserSchema } from "../Schema/User.Schema";
 
 export class UserRepository extends MongoBaseRepository<UserEntity> {
   constructor() {
