@@ -1,18 +1,18 @@
 import { model } from "mongoose";
 import {
-  ElliotDailySpotifyUploadEntity,
+  SpotifyUploadEntity,
   SpotifySegment,
-} from "../../model/ElliotDailySpotifyUpload.Entity";
+} from "../../model/SpotifyUpload.Entity";
 import { MongoBaseRepository } from "./MongoBase.Repository";
-import { ElliotDailySpotifyUploadSchema } from "../Schema/ElliotDailySpotifyUploadSchema";
+import { SpotifyUploadSchema } from "../Schema/SpotifyUploadSchema";
 
-export class ElliotDailySpotifyUploadRepository extends MongoBaseRepository<ElliotDailySpotifyUploadEntity> {
+export class SpotifyUploadRepository extends MongoBaseRepository<SpotifyUploadEntity> {
   constructor() {
     super(
-      model<ElliotDailySpotifyUploadEntity>(
-        "spotifySegments",
-        ElliotDailySpotifyUploadSchema,
-        "spotifySegments",
+      model<SpotifyUploadEntity>(
+        "spotifyUploads",
+        SpotifyUploadSchema,
+        "spotifyUploads",
       ),
     );
   }

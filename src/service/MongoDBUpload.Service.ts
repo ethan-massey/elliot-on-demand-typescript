@@ -1,16 +1,15 @@
 import { Container, Service } from "typedi";
 import { SpotifyRetrievalService } from "./SpotifyRetrieval.Service";
-import { ElliotDailySpotifyUploadRepository } from "../datasource/repositories/ElliotDailySpotifyUpload.Repository";
+import { SpotifyUploadRepository } from "../datasource/repositories/SpotifyUpload.Repository";
 const cron = require("node-cron");
 
 @Service()
 export class MongoDBUploadService {
   private spotifyRetrievalService: SpotifyRetrievalService;
-  private elliotDailySpotifyUploadRepository: ElliotDailySpotifyUploadRepository;
+  private elliotDailySpotifyUploadRepository: SpotifyUploadRepository;
   constructor() {
     this.spotifyRetrievalService = Container.get(SpotifyRetrievalService);
-    this.elliotDailySpotifyUploadRepository =
-      new ElliotDailySpotifyUploadRepository();
+    this.elliotDailySpotifyUploadRepository = new SpotifyUploadRepository();
   }
 
   public async uploadNewElliotSegmentsToMongoDB() {

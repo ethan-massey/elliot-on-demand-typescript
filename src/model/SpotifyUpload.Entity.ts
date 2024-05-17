@@ -1,6 +1,6 @@
 import { MongoDBEntity } from "./MongoDB.Entity";
 
-export interface ElliotDailySpotifyUploadEntity extends MongoDBEntity {
+export interface SpotifyUploadEntity extends MongoDBEntity {
   date: string;
   segments: SpotifySegment[];
 }

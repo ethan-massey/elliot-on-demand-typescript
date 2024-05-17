@@ -1,6 +1,6 @@
 import { Service } from "typedi";
 import axios from "axios";
-import { SpotifySegment } from "../model/ElliotDailySpotifyUpload.Entity";
+import { SpotifySegment } from "../model/SpotifyUpload.Entity";
 import "dotenv/config";
 
 interface segmentByDate {
