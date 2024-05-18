@@ -4,8 +4,8 @@
 // import { S3AudioFileEntity } from "../model/S3AudioFile.Entity";
 // import { SpotifyUploadEntity } from "../model/SpotifyUpload.Entity";
 // import { EpisodeEntity } from "../model/Episode.Entity";
-// import mongoose from "mongoose";
-//
+// import { EpisodeRepository } from "../datasource/repositories/Episode.Repository";
+// const mongoose = require("mongoose");
 //
 // @Service()
 // export class EpisodeDataGeneratorService {
@@ -14,8 +14,7 @@
 //
 //   constructor() {
 //     this.s3AudioFileRepository = new S3AudioFileRepository();
-//     this.elliotDailySpotifyUploadRepository =
-//       new SpotifyUploadRepository();
+//     this.elliotDailySpotifyUploadRepository = new SpotifyUploadRepository();
 //   }
 //
 //   public async generateEpisodeData(): Promise<EpisodeEntity[]> {
@@ -31,12 +30,14 @@
 //     s3Episodes: S3AudioFileEntity[],
 //     spotifySegments: SpotifyUploadEntity[],
 //   ) {
+//     const r = new EpisodeRepository();
 //     const spotifySegmentsGroupedByDate =
 //       this.groupSpotifySegmentsByDate(spotifySegments);
 //     let formattedData: EpisodeEntity[] = [];
-//     s3Episodes.forEach((ep) => {
-//       formattedData.push({
-//         _id: new mongoose.mongo.ObjectId();
+//     s3Episodes.forEach(async (ep) => {
+//       let data = {
+//         _id: new mongoose.Types.ObjectId(),
+//         date: ep.fileName.substring(0, 10),
 //         title: this.formattedDateFromS3FileName(ep.fileName),
 //         fileName: ep.fileName,
 //         segments:
@@ -45,7 +46,8 @@
 //             ? spotifySegmentsGroupedByDate[ep.fileName.substring(0, 10)]
 //                 .segments
 //             : [],
-//       });
+//       };
+//       // await r.createOne(data);
 //     });
 //
 //     formattedData.sort().reverse();
@@ -53,9 +55,7 @@
 //     return formattedData;
 //   }
 //
-//   private groupSpotifySegmentsByDate(
-//     spotifySegments: SpotifyUploadEntity[],
-//   ) {
+//   private groupSpotifySegmentsByDate(spotifySegments: SpotifyUploadEntity[]) {
 //     let ret: any = {};
 //     spotifySegments.forEach((upload) => {
 //       ret[upload.date] = {

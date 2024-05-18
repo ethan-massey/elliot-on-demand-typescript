@@ -1,3 +1,5 @@
+import { ObjectId } from "mongoose";
+
 export interface MongoDBEntity {
-  _id: string;
+  _id: ObjectId;
 }

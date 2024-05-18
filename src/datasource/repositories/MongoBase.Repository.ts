@@ -13,6 +13,10 @@ export abstract class MongoBaseRepository<Type extends MongoDBEntity> {
     return this.convertDocumentsToObjects(query);
   }
 
+  public async createOne(object: Type) {
+    return await this.model.create(object);
+  }
+
   protected convertDocumentsToObjects(docs: Document[]): Type[] {
     return docs.map((item: Document) => {
       return item.toObject();

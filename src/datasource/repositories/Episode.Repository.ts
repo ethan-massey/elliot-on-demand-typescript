@@ -10,6 +10,6 @@ export class EpisodeRepository extends MongoBaseRepository<EpisodeEntity> {
 
   public async findByDate(date: string): Promise<EpisodeEntity[]> {
     const query = await this.model.find({ date: date }).exec();
-    return this.convertDocumentsToObjects(query)
+    return this.convertDocumentsToObjects(query);
   }
 }

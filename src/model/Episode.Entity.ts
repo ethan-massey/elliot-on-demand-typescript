@@ -5,4 +5,6 @@ import { S3AudioFileEntity } from "./S3AudioFile.Entity";
 export interface EpisodeEntity
   extends MongoDBEntity,
     SpotifyUploadEntity,
-    S3AudioFileEntity {}
+    S3AudioFileEntity {
+  title: string;
+}
