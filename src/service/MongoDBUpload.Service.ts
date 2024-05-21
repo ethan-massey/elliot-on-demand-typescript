@@ -6,10 +6,10 @@ const cron = require("node-cron");
 @Service()
 export class MongoDBUploadService {
   private spotifyRetrievalService: SpotifyRetrievalService;
-  private elliotDailySpotifyUploadRepository: SpotifyUploadRepository;
+  private spotifyUploadRepository: SpotifyUploadRepository;
   constructor() {
     this.spotifyRetrievalService = Container.get(SpotifyRetrievalService);
-    this.elliotDailySpotifyUploadRepository = new SpotifyUploadRepository();
+    this.spotifyUploadRepository = new SpotifyUploadRepository();
   }
 
   public async uploadNewElliotSegmentsToMongoDB() {
@@ -17,7 +17,7 @@ export class MongoDBUploadService {
       await this.spotifyRetrievalService.getSegmentsByDateFromSpotify();
 
     for (let segmentByDate of segmentsByDate) {
-      let res = await this.elliotDailySpotifyUploadRepository.updateOneByDate(
+      let res = await this.spotifyUploadRepository.updateOneByDate(
         segmentByDate.date,
         segmentByDate.segment,
       );
