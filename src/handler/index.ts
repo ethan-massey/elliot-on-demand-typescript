@@ -22,3 +22,21 @@ defaultRouter.get("/episodes", async (request: any, response: any) => {
     });
   }
 });
+
+defaultRouter.get("/", async (request: any, response: any) => {
+  const episodeRepository = new EpisodeRepository();
+  const episodes = await episodeRepository.findAll()
+  // If there is an episode in query params
+  // ex. http://localhost:5000/?episode=2023-06-05T05-45-17.wav
+  let episodeQueued;
+  // if (request.query.episode) {
+  //   episodeQueued = episodes.find(
+  //       ({ fileName }) => fileName === request.query.episode,
+  //   );
+  // }
+
+  response.render("index", {
+    episodes,
+    episodeQueued,
+  });
+});
