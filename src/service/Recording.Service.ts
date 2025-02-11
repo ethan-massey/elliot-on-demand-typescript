@@ -71,7 +71,7 @@ export class RecordingService {
 
     // cron job to regularly update episode segments in MongoDB
     public initRecordEpisodeCronJob() {
-        const cronSchedule = "0 50 23 ? * MON-FRI";
+        const cronSchedule = "50 23 * * 1-5";
         // update episodes once a day, every day
         const updateEpisodeSegments = cron.schedule(cronSchedule, () => {
             this.streamEpisodeToS3().catch(console.dir);
