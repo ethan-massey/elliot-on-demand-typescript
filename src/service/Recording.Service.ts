@@ -2,7 +2,7 @@ import {Container, Service} from "typedi";
 
 const cron = require("node-cron");
 import axios from "axios";
-import {getFileNameFromCurrentDateTime} from "../util/formatDate";
+import {getFileNameFromCurrentNewYorkDateTime} from "../util/formatDate";
 import {S3Service} from "./S3.Service";
 
 @Service()
@@ -21,7 +21,7 @@ export class RecordingService {
                 responseType: 'stream'
             })
 
-            const fileName = getFileNameFromCurrentDateTime()
+            const fileName = getFileNameFromCurrentNewYorkDateTime()
             const uploadId = await this.S3Service.startMultipartUpload(fileName)
             const startTime = Date.now();
             let chunkNo = 1
@@ -72,14 +72,15 @@ export class RecordingService {
         }
     }
 
-    // cron job to regularly update episode segments in MongoDB
+    // cron job to regularly record episode
     public initRecordEpisodeCronJob() {
-        // todo: fix this hard coded time zone stuff
-        const cronSchedule = "45 10 * * 1-5"; // 10:45 UTC (5:45 ET)
+        const cronSchedule = "45 5 * * 1-5";
         // update episodes once a day, every day
         const updateEpisodeSegments = cron.schedule(cronSchedule, () => {
             this.streamEpisodeToS3().catch(console.dir);
-        });
+        }, {
+            timezone: 'America/New_York'}
+        );
 
         updateEpisodeSegments.start();
         console.log(
@@ -87,8 +88,3 @@ export class RecordingService {
         );
     }
 }
-
-
-
-
-

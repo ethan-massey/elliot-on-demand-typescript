@@ -1,8 +1,6 @@
-// todo: fix this hard coded time zone stuff
-export const getFileNameFromCurrentDateTime = () => {
-    const date = new Date();
-    const estOffset = -5 * 60 * 60 * 1000; // EST is UTC-5
-    const estDate = new Date(date.getTime() + estOffset);
+import moment from "moment-timezone";
 
-    return `${estDate.toISOString().substring(0, 19)}.mp3`
-}
+export const getFileNameFromCurrentNewYorkDateTime = () => {
+  let timeStamp = moment.tz(moment(), "America/New_York").format();
+  return `${timeStamp.substring(0, timeStamp.length - 6)}.mp3`;
+};
