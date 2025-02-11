@@ -39,7 +39,7 @@ export class S3Service {
 
     try {
       const response = await this.CLIENT.send(command);
-      console.log(`Initiated multi-part S3 upload for file ${fileName}`)
+      console.log(`Initiated multi-part S3 upload for file ${fileName}`);
       return response.UploadId;
     } catch (err) {
       throw err;
