@@ -10,6 +10,7 @@ import {
   openMongoDBConnection,
 } from "./datasource/MongooseConnection";
 import { adHocMongoUpdate } from "./handler/MongoDBUploadAdHoc.Handler";
+import {RecordingService} from "./service/Recording.Service";
 app.set("views", "./src/view");
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -28,6 +29,8 @@ app.listen(process.env.PORT || 5000, () => {
 // Initiate cron job to update MongoDB with any new EITM spotify episodes
 const mongoDBUploadService = Container.get(MongoDBUploadService);
 mongoDBUploadService.initSegmentUploadCronJob();
+const recordingService: RecordingService  = Container.get(RecordingService);
+recordingService.initRecordEpisodeCronJob();
 
 process.on("SIGINT", function () {
   closeMongoDBConnection().then(() => {
