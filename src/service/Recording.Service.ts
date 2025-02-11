@@ -74,6 +74,7 @@ export class RecordingService {
 
     // cron job to regularly update episode segments in MongoDB
     public initRecordEpisodeCronJob() {
+        // todo: fix this hard coded time zone stuff
         const cronSchedule = "45 10 * * 1-5"; // 10:45 UTC (5:45 ET)
         // update episodes once a day, every day
         const updateEpisodeSegments = cron.schedule(cronSchedule, () => {

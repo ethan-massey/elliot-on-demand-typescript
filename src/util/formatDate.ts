@@ -1,3 +1,4 @@
+// todo: fix this hard coded time zone stuff
 export const getFileNameFromCurrentDateTime = () => {
     const date = new Date();
     const estOffset = -5 * 60 * 60 * 1000; // EST is UTC-5
