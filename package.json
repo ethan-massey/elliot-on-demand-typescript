@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "yarn run build && node build/index.js",
+    "start-ts": "npx ts-node src/index.ts",
     "dev": "npx nodemon ./src/index.ts",
     "build": "rm -rf ./build && tsc",
-    "format": "prettier --write \"./src/**/*.ts\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "format": "prettier --write \"./src/**/*.ts\""
   },
   "keywords": [],
   "author": "",
