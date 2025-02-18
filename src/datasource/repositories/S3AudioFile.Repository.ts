@@ -35,8 +35,8 @@ export class S3AudioFileRepository {
         ? []
         : this.convertS3ObjectsToS3Entities(response.Contents);
     } catch (err) {
-      console.error(`Error getting objects from S3: ${err}`)
-      return []
+      console.error(`Error getting objects from S3: ${err}`);
+      return [];
     }
   }
 
