@@ -33,7 +33,7 @@ defaultRouter.get("/rss-feed", async (request: any, response: any) => {
           { title: ["Elliot on Demand"] },
           { link: ["https://www.eitmondemand.com/rss-feed"] },
           { description: [""] },
-          { item: [{ title: ['Fri Mar 28 2025'] }, { link: ['https://d2bso5f73cpfun.cloudfront.net/2025-03-28T05:45:00.mp3'] }, { description: ['EITM: Katie Pumphrey 3/28/25 | swimkatie.com, EITM: Bride\'s Two Dads 3/28/25 | When it comes to wedding traditions, bio or step?, EITM: Raising Canines 3/28/25 | Puppy parents and their future service dogs.'] }] },
+          { item: [{ title: ['Fri Mar 28 2025'] }, { link: ['https://www.eitmondemand.com/?episode=2025-03-28T05:45:00.mp3'] }, { description: ['EITM: Katie Pumphrey 3/28/25 | swimkatie.com, EITM: Bride\'s Two Dads 3/28/25 | When it comes to wedding traditions, bio or step?, EITM: Raising Canines 3/28/25 | Puppy parents and their future service dogs.'] }] },
         ],
       },
     ],
