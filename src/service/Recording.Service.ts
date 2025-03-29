@@ -4,13 +4,16 @@ const cron = require("node-cron");
 import axios from "axios";
 import { getFileNameFromCurrentNewYorkDateTime } from "../util/formatDate";
 import { S3Service } from "./S3.Service";
+import { RssFileRepository } from "../datasource/repositories/RssFile.Repository";
 
 @Service()
 export class RecordingService {
   private S3Service: S3Service;
+  private rssFileRepository: RssFileRepository;
 
   constructor() {
     this.S3Service = Container.get(S3Service);
+    this.rssFileRepository = new RssFileRepository();
   }
 
   private async streamEpisodeToS3() {
@@ -69,6 +72,13 @@ export class RecordingService {
 
             // end stream
             stream.destroy();
+
+            // add episode to RSS feed
+            await this.rssFileRepository.addItemWithTitleAndLink(
+              fileName,
+              `https://d2bso5f73cpfun.cloudfront.net/${fileName}`,
+              "1.0",
+            );
           } else {
             // set buffer back to empty
             chunkNo += 1;

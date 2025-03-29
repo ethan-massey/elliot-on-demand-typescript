@@ -1,7 +1,7 @@
 import { EpisodeDataGeneratorService } from "../service/EpisodeDataGenerator.Service";
 import { Container } from "typedi";
+import { RssFileRepository } from "../datasource/repositories/RssFile.Repository";
 const express = require("express");
-const xml = require("xml");
 export const defaultRouter = express.Router();
 
 defaultRouter.get("/", async (request: any, response: any) => {
@@ -24,21 +24,11 @@ defaultRouter.get("/", async (request: any, response: any) => {
   });
 });
 
+// todo: rss will be served properly, and updated on every episode upload, but rss descriptions won't be updated currently
+// todo: need to add that logic after the spotify API call to update rss descriptions
 defaultRouter.get("/rss-feed", async (request: any, response: any) => {
-  const data = {
-    rss: [
-      { _attr: { version: "2.0" } },
-      {
-        channel: [
-          { title: ["Elliot on Demand"] },
-          { link: ["https://www.eitmondemand.com/rss-feed"] },
-          { description: [""] },
-          { item: [{ title: ['Fri Mar 28 2025'] }, { link: ['https://d2bso5f73cpfun.cloudfront.net/2025-03-28T05:45:00.mp3'] }, { description: ['EITM: Katie Pumphrey 3/28/25 | swimkatie.com, EITM: Bride\'s Two Dads 3/28/25 | When it comes to wedding traditions, bio or step?, EITM: Raising Canines 3/28/25 | Puppy parents and their future service dogs.'] }] },
-        ],
-      },
-    ],
-  };
-  const xmlString = xml(data);
+  const rssFileRepository = new RssFileRepository();
+  const rssString = await rssFileRepository.findOneByVersion("1.0");
   response.set("Content-Type", "application/xml");
-  response.send(xmlString);
+  response.send(rssString.fileString);
 });
