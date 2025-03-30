@@ -75,7 +75,7 @@ export class RecordingService {
 
             // add episode to RSS feed
             await this.rssFileRepository.addItemWithTitleAndLink(
-              fileName,
+              fileName, // todo: get this in correct format
               `https://d2bso5f73cpfun.cloudfront.net/${fileName}`,
               "1.0",
             );
