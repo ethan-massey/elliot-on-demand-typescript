@@ -23,6 +23,7 @@ export class RecordingService {
 
       const fileName = getFileNameFromCurrentNewYorkDateTime();
       const uploadId = await this.S3Service.startMultipartUpload(fileName);
+      console.log(`s3 uploadId: ${uploadId}`);
       const startTime = Date.now();
       let chunkNo = 1;
       let parts: any[] = [];
@@ -49,10 +50,12 @@ export class RecordingService {
             chunkNo,
             uploadId,
           );
-          parts.push({
+          let part = {
             ETag: eTag,
             PartNumber: chunkNo,
-          });
+          };
+          parts.push(part);
+          console.log(JSON.stringify(part));
           console.log(
             `uploaded ${tempBuffer.length} bytes of data. (Chunk No. ${chunkNo})`,
           );
