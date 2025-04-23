@@ -80,6 +80,17 @@ export class RecordingService {
           }
         }
       });
+
+      stream.on("error", (err: any) => {
+        console.error(`Error while streaming episode: ${err}`);
+      });
+
+      stream.on("close", (err: any) => {
+        console.log("Stream closed");
+        if (err) {
+          console.error(err);
+        }
+      });
     } catch (e) {
       console.error(`Error while streaming episode to S3: ${e}`);
     }
