@@ -37,13 +37,18 @@ export class SpotifyRetrievalService {
     let segmentsByDate: segmentByDate[] = [];
     // get relevant data (date, title, description)
     spotifyResponseData.forEach((element: any) => {
-      segmentsByDate.push({
-        date: element.release_date,
-        segment: {
-          title: element.name,
-          description: element.description,
-        },
-      });
+      if (element !== null) {
+        segmentsByDate.push({
+          date: element.release_date,
+          segment: {
+            title: element.name,
+            description: element.description,
+          },
+        });
+      } else {
+        // because Spotify sometimes returns null elements in the response (?)
+        console.warn("Encountered null element in Spotify response data.");
+      }
     });
     return segmentsByDate;
   }
