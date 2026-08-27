@@ -18,19 +18,12 @@
   </head>
   <body>
     <%- include('./partials/_nav'); %>
-    <h4 class="text-center m-3 p-3 bg-light text-dark">New episodes every day! Here's what we have on tap 🍺:</h4>
+    <div class="text-light bg-danger text-center m-3 p-3">
+      <h4 class="text-light">Bad news ☹️</h4>
+      <p>Because of growing popularity and more users, the AWS cloud costs to run this site have gotten too high for me to afford.</p>
+      <p>I'll get to work and find a solution. We'll be back!</p>
+    </div>
     <div class="container mt-2">
-      <div class="container px-4 mb-4">
-        <div class="row gx-5">
-          <header>
-            <div id="now_playing"></div>
-          </header>
-          <audio id="audioplayer" class="mt-2 mb-2" controls autoplay preload="metadata">
-            <source src="" type="audio/wav">
-          </audio>
-          <%- include('./partials/_episodeList'); %>
-        </div>
-      </div>
       <footer>
         Created by
         <a target="_blank" href="https://github.com/ethan-massey">Ethan</a>
